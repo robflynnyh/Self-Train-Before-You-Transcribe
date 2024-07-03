@@ -1,6 +1,7 @@
 # Self-Train-Before-You-Transcribe
 Code for Interspeech 2024 paper: Self-Train Before You Transcribe
 ![figure and algorithm 1 in paper](https://github.com/robflynnyh/Self-Train-Before-You-Transcribe/blob/main/nsti.png?raw=true)
+- Preprint available https://arxiv.org/abs/2406.12937v1
 
 - Only basic code is provided at the moment will be updated in future with a more complete version. In the mean time create an issue or email me if you have any problems.
 - code.py contains the functions that were used for the primary experiments in the paper. Specifically the dynamic_eval_ctc_loss function is the main method that is presented. 
