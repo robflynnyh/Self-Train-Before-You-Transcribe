@@ -12,7 +12,7 @@ from lcasr.decoding.greedy import GreedyCTCDecoder
 from lcasr.optim import madgrad
 import random
 from einops import rearrange
-import ctc_beam_search as beam_search
+from lcasr.decoding import ctc_beam_search as beam_search
 from lming.utils import general
 import lcasr
 from functools import partial
