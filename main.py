@@ -13,7 +13,11 @@ from lcasr.optim import madgrad
 import random
 from einops import rearrange
 from lcasr.decoding import ctc_beam_search as beam_search
-from lming.utils import general
+try:
+        from lming.utils import general
+except:
+        general = None
+        
 import lcasr
 from functools import partial
 from matplotlib import pyplot as plt
@@ -30,6 +34,7 @@ def load_beamsearch(
         prune_less_than_val:float=3.17,
         top_am_threshold:float=-6,
     ):
+    assert general != None, 'install https://github.com/robflynnyh/language_modelling to use beam_search'
     checkpoint = torch.load(path, map_location='cpu')
     checkpoint['model'] = general.convert_from_ddp(checkpoint['model'])
     model_config = checkpoint['config']
