@@ -13,17 +13,17 @@ from lcasr.optim import madgrad
 import random
 from einops import rearrange
 from lcasr.decoding import ctc_beam_search as beam_search
-try:
-        from lming.utils import general
-except:
-        general = None
+
+try: from lming.utils import general
+except: general = None
         
 import lcasr
 from functools import partial
 from matplotlib import pyplot as plt
 from torch_ema import ExponentialMovingAverage
 from torch.nn import functional as F
-from apex.normalization import FusedLayerNorm
+try: from apex.normalization import FusedLayerNorm
+except: FusedLayerNorm = None
 from lcasr.components.batchrenorm import BatchRenorm1d
 import time
 
@@ -127,7 +127,9 @@ def bitfit(model):
     for param in model.parameters():
         param.requires_grad = False
     for module in model.modules():
-        if isinstance(module, FusedLayerNorm) or isinstance(module, torch.nn.LayerNorm):
+        if isinstance(module, FusedLayerNorm) and FusedLayerNorm != None: 
+            module.bias.requires_grad = True
+        if isinstance(module, torch.nn.LayerNorm):
             module.bias.requires_grad = True
         if isinstance(module, torch.nn.Linear) and module.bias is not None:
             module.bias.requires_grad = True
