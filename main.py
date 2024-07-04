@@ -1,8 +1,6 @@
 from omegaconf import OmegaConf
 import os
-#paths = OmegaConf.load('paths.yaml')
-# use absolute path
-paths = OmegaConf.load(os.path.join(os.path.dirname(__file__), '../paths.yaml'))
+
 import torch
 import torch.nn as nn
 from tqdm import tqdm
@@ -534,34 +532,17 @@ dynamic_eval = dynamic_eval_ctc_loss
 
 
 
-'''
-shared functions between scripts
-'''
-def apply_args(parser):
-    parser.add_argument('-c', '--checkpoint', type=str, default='', help='path to checkpoint')
-    parser.add_argument('-split', '--split', type=str, default='test', help='test or dev split')
-    parser.add_argument('-seq', '--seq_len', type=int, default=16384, help='-1 to use setting from config in checkpoint file')
-    parser.add_argument('-o', '--overlap', type=int, default=14336, help='-1 to use setting from config in checkpoint file')
-    parser.add_argument('-nv', '--not_verbose', action='store_true', help='verbose')
-    parser.add_argument('-log', '--log', type=str, default='')
-    parser.add_argument('-ds', '--dont_shuffle', action='store_true', help='dont shuffle')
-    #parser.add_argument('-shuffle', '--shuffle', action='store_true', help='shuffle')
-    parser.add_argument('-epochs', '--epochs', type=int, default=1, help='epochs')
-    parser.add_argument('-dfa', '--disable_flash_attention', action='store_true', help='disable flash attention')
-    parser.add_argument('-beamsearch', '--beamsearch', action='store_true', help='use beam search')
-    parser.add_argument('-kwargs', '--kwargs', nargs='+', help='kwargs')
-    parser.add_argument('-awmc', '--awmc', action='store_true', help='Use AWMC method from https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10389640&tag=1 instead of dynamic eval')
 
-    args = parser.parse_args()
-
-    if args.kwargs is None: args.kwargs = []
-    for kwarg in args.kwargs:
-        key, value = kwarg.split('=')
-        args.__dict__[key] = eval(value)
-        print(f'Overriding {key} to {value}')
-
-    args.shuffle = not args.dont_shuffle
-    args.verbose = not args.not_verbose
-    if args.checkpoint == '':
-        args.checkpoint = paths.checkpoints.lcasr
-    return args
+    # parser.add_argument('-c', '--checkpoint', type=str, default='', help='path to checkpoint')
+    # parser.add_argument('-split', '--split', type=str, default='test', help='test or dev split')
+    # parser.add_argument('-seq', '--seq_len', type=int, default=16384, help='-1 to use setting from config in checkpoint file')
+    # parser.add_argument('-o', '--overlap', type=int, default=14336, help='-1 to use setting from config in checkpoint file')
+    # parser.add_argument('-nv', '--not_verbose', action='store_true', help='verbose')
+    # parser.add_argument('-log', '--log', type=str, default='')
+    # parser.add_argument('-ds', '--dont_shuffle', action='store_true', help='dont shuffle')
+    # #parser.add_argument('-shuffle', '--shuffle', action='store_true', help='shuffle')
+    # parser.add_argument('-epochs', '--epochs', type=int, default=1, help='epochs')
+    # parser.add_argument('-dfa', '--disable_flash_attention', action='store_true', help='disable flash attention')
+    # parser.add_argument('-beamsearch', '--beamsearch', action='store_true', help='use beam search')
+    # parser.add_argument('-kwargs', '--kwargs', nargs='+', help='kwargs')
+    # parser.add_argument('-awmc', '--awmc', action='store_true', help='Use AWMC method from https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10389640&tag=1 instead of dynamic eval')
